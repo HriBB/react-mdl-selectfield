@@ -54,7 +54,6 @@
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.6.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "ghooks": "^1.3.2",
     "isparta": "^4.0.0",
     "istanbul": "^1.1.0-alpha.1",
     "jsdom": "^9.4.1",
