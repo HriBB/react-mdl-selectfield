@@ -4,9 +4,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"],
-        include: path.resolve(__dirname, '../')
+        test  : /\.(scss|css)$/,
+        loader: 'style!css?sourceMap!postcss!sass?sourceMap'
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

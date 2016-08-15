@@ -1,3 +1,5 @@
-import App from './App/App';
+import SelectField from './SelectField/SelectField';
+import MultiSelectField from './MultiSelectField/MultiSelectField';
+import Option from './Option/Option';
 
-export {App};
+export { SelectField, MultiSelectField, Option };
