@@ -1,6 +1,5 @@
 {
   "name": "react-mdl-selectfield",
-  "version": "0.0.1",
   "description": "React Material Design Lite Selectfield Component",
   "main": "components/index.js",
   "scripts": {
@@ -33,6 +32,9 @@
     "url": "https://github.com/HriBB/react-mdl-selectfield/issues"
   },
   "homepage": "https://github.com/HriBB/react-mdl-selectfield",
+  "peerDependencies": {
+    "react-mdl": "^1.6.1"
+  },
   "devDependencies": {
     "@kadira/storybook": "^1.41.0",
     "autoprefixer": "^6.4.0",
@@ -67,7 +69,6 @@
     "node-sass": "^3.4.2",
     "postcss": "^5.1.2",
     "postcss-loader": "^0.10.0",
-    "react-mdl": "^1.6.1",
     "rimraf": "^2.3.4",
     "sass-loader": "^3.2.3",
     "semantic-release": "^4.3.5",
