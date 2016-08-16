@@ -8,8 +8,8 @@
     "prepublish": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "storybook": "start-storybook -p 9002",
-    "test": "mocha --require test/config/setup 'tests/**/*.test.js'",
-    "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'"
+    "test": "mocha --require test/config/setup 'test/*.js'",
+    "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require test/config/setup 'test/*.js'"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "commitizen": "^2.5.0",
