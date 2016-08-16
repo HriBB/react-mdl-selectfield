@@ -4,6 +4,8 @@ import classnames from 'classnames'
 
 import './SelectField.scss'
 
+import Option from '../Option/Option'
+
 export default class SelectField extends Component {
 
   constructor(props) {
