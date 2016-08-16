@@ -41,6 +41,9 @@
     "url": "https://github.com/HriBB/react-mdl-selectfield/issues"
   },
   "homepage": "https://hribb.github.io/react-mdl-selectfield/",
+  "peerDependencies": {
+    "react-mdl": "^1.6.1"
+  },
   "devDependencies": {
     "@kadira/storybook": "^1.41.0",
     "autoprefixer": "^6.4.0",
