@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import 'react-mdl/extra/material.js';
+import 'react-mdl/extra/material.css';
+import './index.scss';
+
 import {
   SelectField,
   MultiSelectField,
@@ -8,7 +12,8 @@ import {
 } from '../components';
 
 ReactDOM.render(
-  <div>
+  <div className="example">
+    <h1>React MDL Selectfield Component</h1>
     <SelectField label={'Default'}>
       <Option value={1}>One</Option>
       <Option value={2}>Two</Option>
