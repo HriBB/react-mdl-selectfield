@@ -21,6 +21,7 @@
   },
   "homepage": "https://hribb.github.io/react-mdl-selectfield/",
   "devDependencies": {
+    "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },

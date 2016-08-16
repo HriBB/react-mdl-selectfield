@@ -7,13 +7,14 @@
   "scripts": {
     "start": "npm run storybook",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9002",
-    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && cp src/SelectField/SelectField.scss lib/SelectField/SelectField.scss && cp src/MultiSelectField/MultiSelectField.scss lib/MultiSelectField/MultiSelectField.scss",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es && cp src/SelectField/SelectField.scss es/SelectField/SelectField.scss && cp src/MultiSelectField/MultiSelectField.scss es/MultiSelectField/MultiSelectField.scss",
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack --progress --verbose --colors",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --progress --verbose --colors",
-    "build:examples": "cross-env BABEL_ENV=commonjs babel-node examples/buildAll.js",
+    "build:examples": "cd examples && npm run build",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "lint": "eslint src/** test/**",
+    "gh-pages": "gh-pages-deploy",
     "prepublish": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --require test/config/setup 'test/*.js'",
@@ -39,6 +40,11 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/HriBB/react-mdl-selectfield/issues"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "examples/dist",
+    "prep": ["build:examples"],
+    "noprompt": false
   },
   "homepage": "https://hribb.github.io/react-mdl-selectfield/",
   "peerDependencies": {
@@ -85,14 +91,14 @@
     "semantic-release": "^4.3.5",
     "sinon": "^1.17.4",
     "style-loader": "^0.13.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "@kadira/storybook-deployer": "^1.0.0",
     "classnames": "^2.2.3",
     "invariant": "^2.0.0",
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "react-mdl": "^1.6.1"
   }
 }
