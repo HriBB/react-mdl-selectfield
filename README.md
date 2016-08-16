@@ -1,6 +1,16 @@
-# readt-mdl-selectfield
+# React-MDL SelectField
 
 > Selectfield component for [React Material Design Lite](https://github.com/tleunen/react-mdl)
+
+## Examples
+
+https://hribb.github.io/react-mdl-selectfield/
+
+## Installation
+
+```
+npm install --save react-mdl-selectfield
+```
 
 ## Usage
 
