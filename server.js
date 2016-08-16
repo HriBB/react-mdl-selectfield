@@ -6,15 +6,16 @@ var config = require('./webpack.config');
 var app = express();
 var compiler = webpack(config);
 
-var options = {
-  noInfo: true
-};
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
 
-if(a = config.output.publicPath) options.publicPath = a;
-
-app.use(require('webpack-dev-middleware')(compiler, options));
-
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(require('webpack-hot-middleware')(compiler, {
+  log: console.log,
+  path: '/__webpack_hmr',
+  heartbeat: 10 * 1000
+}));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'examples', 'index.html'));

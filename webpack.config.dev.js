@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'eventsource-polyfill',
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?path=/__webpack_hmr',
     path.resolve(__dirname, 'examples', 'index')
   ],
   output: {
@@ -28,7 +28,7 @@ module.exports = {
     }],
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel?cacheDirectory'],
+      loaders: ['react-hot', 'babel?cacheDirectory'],
       exclude: /node_modules/
     },{
       test: /\.(scss|css)$/,
