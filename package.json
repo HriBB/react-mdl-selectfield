@@ -1,13 +1,19 @@
 {
   "name": "react-mdl-selectfield",
-  "description": "React Material Design Lite Selectfield Component",
-  "main": "components/index.js",
+  "description": "React MDL SelectField Component",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "scripts": {
     "start": "npm run storybook",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9002",
-    "dev": "cross-env NODE_ENV=development node ./server.js",
-    "lint": "eslint components/** test/**",
-    "build-examples": "cross-env NODE_ENV=production webpack --progress --verbose --colors",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack --progress --verbose --colors",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --progress --verbose --colors",
+    "build:examples": "cross-env BABEL_ENV=commonjs babel-node examples/buildAll.js",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "lint": "eslint src/** test/**",
     "prepublish": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --require test/config/setup 'test/*.js'",
@@ -34,10 +40,7 @@
   "bugs": {
     "url": "https://github.com/HriBB/react-mdl-selectfield/issues"
   },
-  "homepage": "https://github.com/HriBB/react-mdl-selectfield",
-  "peerDependencies": {
-    "react-mdl": "^1.6.1"
-  },
+  "homepage": "https://hribb.github.io/react-mdl-selectfield/",
   "devDependencies": {
     "@kadira/storybook": "^1.41.0",
     "autoprefixer": "^6.4.0",
@@ -80,8 +83,7 @@
     "sinon": "^1.17.4",
     "style-loader": "^0.13.0",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "@kadira/storybook-deployer": "^1.0.0",
