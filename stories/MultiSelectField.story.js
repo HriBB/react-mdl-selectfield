@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { MultiSelectField, Option } from '../components';
+import { MultiSelectField, Option } from '../src';
 
 storiesOf('MultiSelectField', module)
   .add('default', () => (

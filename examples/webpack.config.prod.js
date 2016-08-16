@@ -1,5 +1,3 @@
-'use strict';
-
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -8,11 +6,11 @@ var HtmlWebpackPluginRemove = require('html-webpack-plugin-remove');
 
 module.exports = {
   entry: [
-    path.resolve(__dirname, 'examples', 'index')
+    path.resolve(__dirname, 'index')
   ],
   output: {
-    path: path.resolve(__dirname, 'examples', 'dist'),
-    filename: 'example.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'examples.js'
   },
   resolve: {
     extensions: ['', '.js']
@@ -33,15 +31,14 @@ module.exports = {
     }]
   },
   plugins: [
-    new HtmlWebpackPluginRemove('\n  <script src="./bundle.js"></script>'),
+    new HtmlWebpackPluginRemove('\n  <script src="./examples.js"></script>'),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'examples', 'index.html'),
+      template: path.resolve(__dirname, 'index.html'),
       filename: 'index.html',
       inject: 'body',
       hash: true,
       xhtml: true,
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -59,6 +56,6 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin('example.css', { allChunks: true })
+    new ExtractTextPlugin('examples.css')
   ],
 };

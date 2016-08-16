@@ -1,21 +1,16 @@
-'use strict';
-
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackPluginRemove = require('html-webpack-plugin-remove');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'eventsource-polyfill',
     'webpack-hot-middleware/client?path=/__webpack_hmr',
-    path.resolve(__dirname, 'examples', 'index')
+    path.resolve(__dirname, 'index')
   ],
   output: {
-    path: path.resolve(__dirname, 'examples', 'dist'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'examples.js'
   },
   resolve: {
     extensions: ['', '.js']
@@ -36,8 +31,8 @@ module.exports = {
     }]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })

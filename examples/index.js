@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import 'react-mdl/extra/material.js';
 import 'react-mdl/extra/material.css';
-import './index.scss';
 
 import Example from './Example'
 

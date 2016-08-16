@@ -3,6 +3,7 @@ node_modules
 .DS_Store
 dist
 lib
+es
 coverage
 .idea
 examples/bundle.js
