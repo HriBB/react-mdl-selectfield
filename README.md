@@ -27,3 +27,7 @@ cd react-mdl-selectfield/
 npm install
 npm run storybook
 ```
+
+## Component boilerplace
+
+Using [react-component-boilerplate](https://github.com/ritz078/react-component-boilerplate)
