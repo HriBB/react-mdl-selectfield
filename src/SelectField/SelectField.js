@@ -15,6 +15,7 @@ export default class SelectField extends Component {
     value: PropTypes.any,
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     multiple: PropTypes.bool,
+    readOnly: PropTypes.bool,
     editable: PropTypes.bool,
     skipValues: PropTypes.array,
     onFocus: PropTypes.func,
