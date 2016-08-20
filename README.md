@@ -1,16 +1,25 @@
 # React-MDL SelectField
 
-> Selectfield component for [React Material Design Lite](https://github.com/tleunen/react-mdl)
-
-## Examples
-
-https://hribb.github.io/react-mdl-selectfield/
+Selectfield component for [React Material Design Lite](https://github.com/tleunen/react-mdl)
 
 ## Installation
 
 ```
 npm install --save react-mdl-selectfield
 ```
+
+## Examples
+
+https://hribb.github.io/react-mdl-selectfield/
+
+```
+git clone https://github.com/HriBB/react-mdl-selectfield
+cd react-mdl-selectfield
+npm install
+npm run storybook
+open http://localhost:9002/
+```
+
 
 ## Usage
 
@@ -30,7 +39,10 @@ render() {
 }
 ```
 
-NOTE: `<Option>` component requires a string `children` prop for filtering.
+`<Option>` component requires a string `children` prop for filtering to work.
+This sucks, because you cannot put anything complex (such as `Icon`) inside `Option`.
+That is why `AutoCompleteField` component is on its way ;)
+Until then you should stringify your `<Option>` children:
 
 ```
 <SelectField label={'Select me'} editable>
@@ -42,19 +54,14 @@ NOTE: `<Option>` component requires a string `children` prop for filtering.
 </SelectField>
 ```
 
-## Development
+## TODO
 
-```
-cd react-mdl-selectfield/
-npm install
-npm run storybook
-```
+- [x] Add `readOnly` prop to `SelectField` and `MultiSelectField`
+- [ ] Make `SelectField` and `MultiSelectField` completely stateless?
+- [ ] Create `AutoCompleteField`
+- [x] Pray for a good `Selectfield` in [`mdl v2`](https://github.com/google/material-design-lite/issues/4475)
 
 ## Component boilerplate
 
 Using [react-component-boilerplate](https://github.com/ritz078/react-component-boilerplate)
-
-## TODO
-
-- [ ] Add readOnly to `MultiSelectField`
-- [ ] Make both `SelectField` and `MultiSelectField` stateless
+with some modifications and improvements.

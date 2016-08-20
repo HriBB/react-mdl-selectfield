@@ -91,27 +91,20 @@ export default class MultiSelectField extends Component {
     return (
       <div className={mainClass}>
 
-        {readOnly &&
-          <div className={'mdl-textfield mdl-textfield--readOnly'}>
-            <div className={'mdl-textfield__input'}>
-              {label}
-            </div>
-          </div>}
-
-        {!readOnly &&
-          <SelectField
-            floatingLabel={floatingLabel}
-            label={label}
-            multiple
-            error={error}
-            editable={editable}
-            skipValues={value}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onChange={this.onSelectChange}
-          >
-            {children}
-          </SelectField>}
+        <SelectField
+          floatingLabel={floatingLabel}
+          label={label}
+          multiple
+          error={error}
+          editable={editable}
+          readOnly={readOnly}
+          skipValues={value}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={this.onSelectChange}
+        >
+          {children}
+        </SelectField>
 
         <div className={'mdl-taglist'}>
           {tags.map(tag =>

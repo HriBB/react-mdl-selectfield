@@ -32,6 +32,24 @@ storiesOf('SelectField', module)
       <Option value={5}>Five</Option>
     </SelectField>
   ))
+  .add('editable', () => (
+    <SelectField label={'Select me'} editable>
+    <Option value={1}>One</Option>
+    <Option value={2}>Two</Option>
+    <Option value={3}>Three</Option>
+    <Option value={4}>Four</Option>
+    <Option value={5}>Five</Option>
+    </SelectField>
+  ))
+  .add('readonly', () => (
+    <SelectField label={'Select me'} readOnly value={3}>
+    <Option value={1}>One</Option>
+    <Option value={2}>Two</Option>
+    <Option value={3}>Three</Option>
+    <Option value={4}>Four</Option>
+    <Option value={5}>Five</Option>
+    </SelectField>
+  ))
   .add('empty option', () => (
     <SelectField label={'Select me'}>
       <Option value={''} disabled>-- Select value --</Option>
@@ -44,15 +62,6 @@ storiesOf('SelectField', module)
   ))
   .add('floating label', () => (
     <SelectField label={'Select me'} floatingLabel>
-      <Option value={1}>One</Option>
-      <Option value={2}>Two</Option>
-      <Option value={3}>Three</Option>
-      <Option value={4}>Four</Option>
-      <Option value={5}>Five</Option>
-    </SelectField>
-  ))
-  .add('editable input', () => (
-    <SelectField label={'Select me'} editable>
       <Option value={1}>One</Option>
       <Option value={2}>Two</Option>
       <Option value={3}>Three</Option>

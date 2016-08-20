@@ -31,6 +31,11 @@ export default class SelectField extends Component {
 
   constructor(props) {
     super(props)
+
+    if (props.readOnly && props.editable) {
+      throw new Error('MultiSelectField cannot be both "editable" and "readOnly"!')
+    }
+
     this.state = {
       value: null,
       inputValue: '',
@@ -42,6 +47,8 @@ export default class SelectField extends Component {
     selectFieldIndex++
 
     // override material menu if needed
+    // this needs to be done in the constructor
+    // otherwise menu does not work properly
     if (!overrideApplied) applyOverride()
 
     this.showMenu = this.showMenu.bind(this)
@@ -184,48 +191,68 @@ export default class SelectField extends Component {
   }
 
   render() {
-    const { floatingLabel, className, label, error, multiple, editable } = this.props
-    const { value, inputValue, focused } = this.state
+    const {
+      floatingLabel, className, label,
+      error, multiple, readOnly, editable,
+    } = this.props
+
+    const {
+      value, inputValue, focused,
+    } = this.state
+
     const children = this.getChildren()
+
     const mainClass = classnames({
       'mdl-selectfield': true,
       'mdl-selectfield--editable': editable,
       'mdl-selectfield--error': error,
     }, className)
+
+    const inputProps = {
+      id: this.id,
+      className: menuSkipForClass,
+      type: 'text',
+      value: !multiple ? inputValue : '',
+      error,
+      label,
+      floatingLabel,
+      readOnly: !editable,
+      ref: ref => this.input = ref,
+    }
+
+    if (!readOnly) {
+      inputProps.onFocus = this.onTextfieldFocus
+      inputProps.onBlur = this.onTextfieldBlur
+      inputProps.onChange = this.onTextfieldChange
+      inputProps.onKeyDown = this.onTextfieldKeyDown
+    }
+
     return (
       <div className={mainClass}>
-        <Textfield
-          id={this.id}
-          className={menuSkipForClass}
-          floatingLabel={floatingLabel}
-          type={'text'}
-          label={label}
-          error={error}
-          value={!multiple ? inputValue : ''}
-          readOnly={!editable}
-          onFocus={this.onTextfieldFocus}
-          onBlur={this.onTextfieldBlur}
-          onChange={this.onTextfieldChange}
-          onKeyDown={this.onTextfieldKeyDown}
-          ref={ref => this.input = ref}
-        />
-        <Icon
-          className={'mdl-selectfield__arrow'}
-          name={`arrow_drop_${focused ? 'up' : 'down'}`}
-          onClick={this.showMenu}
-        />
-        <Menu target={this.id} ripple>
-          {Children.map(children, child => {
-            const className = classnames({
-              'mdl-menu__item--selected': !multiple && child.props.value === value,
-              'mdl-menu__item--disabled': child.props.disabled,
-            })
-            return React.cloneElement(child, {
-              className,
-              onClick: () => this.onMenuItemClick(child),
-            })
-          })}
-        </Menu>
+
+        <Textfield {...inputProps}/>
+
+        {!readOnly &&
+          <Icon
+            className={'mdl-selectfield__arrow'}
+            name={`arrow_drop_${focused ? 'up' : 'down'}`}
+            onClick={this.showMenu}
+          />}
+
+        {!readOnly &&
+          <Menu target={this.id} ripple>
+            {Children.map(children, child => {
+              const className = classnames({
+                'mdl-menu__item--selected': !multiple && child.props.value === value,
+                'mdl-menu__item--disabled': child.props.disabled,
+              })
+              return React.cloneElement(child, {
+                className,
+                onClick: () => this.onMenuItemClick(child),
+              })
+            })}
+          </Menu>}
+
       </div>
     )
   }
