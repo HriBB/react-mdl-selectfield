@@ -8,6 +8,24 @@ import SelectField from '../SelectField/SelectField'
 
 export default class MultiSelectField extends Component {
 
+  static propTypes = {
+    className: PropTypes.string,
+    floatingLabel: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.array,
+    editable: PropTypes.bool,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  }
+
+  static defaultProps = {
+    value: [],
+  }
+
+
   constructor(props) {
     super(props)
     this.state = {
@@ -90,21 +108,4 @@ export default class MultiSelectField extends Component {
     )
   }
 
-}
-
-MultiSelectField.propTypes = {
-  className: PropTypes.string,
-  floatingLabel: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.array,
-  editable: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
-}
-
-MultiSelectField.defaultProps = {
-  value: [],
 }

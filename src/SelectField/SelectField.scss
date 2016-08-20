@@ -39,15 +39,16 @@
   .mdl-menu__container {
     width: 100% !important;
     margin-top: -20px;
+
+    // use this if you want to follow the material design spec
+    // which places the menu above the input field
     //margin-top: -46px;
-    //max-height: 250px;
-    //margin-bottom: 10px;
 
     .mdl-menu {
       width: 100% !important;
-      //max-height: 250px;
-      //overflow-x: hidden;
-      //overflow-y: auto;
+      max-height: 250px;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       .mdl-menu__item {
         height: 32px;

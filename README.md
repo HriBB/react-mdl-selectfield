@@ -30,6 +30,18 @@ render() {
 }
 ```
 
+NOTE: `<Option>` component requires a string `children` prop for filtering.
+
+```
+<SelectField label={'Select me'} editable>
+  {users.map(user =>
+    <Option key={user.id} value={user.id}>
+      {`${user.first_name} ${user.last_name}`}
+    </Option>
+  )}
+</SelectField>
+```
+
 ## Development
 
 ```
@@ -38,6 +50,11 @@ npm install
 npm run storybook
 ```
 
-## Component boilerplace
+## Component boilerplate
 
 Using [react-component-boilerplate](https://github.com/ritz078/react-component-boilerplate)
+
+## TODO
+
+- [ ] Add readOnly to `MultiSelectField`
+- [ ] Make both `SelectField` and `MultiSelectField` stateless

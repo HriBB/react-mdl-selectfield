@@ -8,6 +8,27 @@ import Option from '../Option/Option'
 
 export default class SelectField extends Component {
 
+  static propTypes = {
+    className: PropTypes.string,
+    floatingLabel: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    multiple: PropTypes.bool,
+    editable: PropTypes.bool,
+    skipValues: PropTypes.array,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  }
+
+  static defaultProps = {
+    editable: false,
+    multiple: false,
+    skipValues: [],
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -210,28 +231,6 @@ export default class SelectField extends Component {
   }
 
 }
-
-SelectField.propTypes = {
-  className: PropTypes.string,
-  floatingLabel: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.any,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  multiple: PropTypes.bool,
-  editable: PropTypes.bool,
-  skipValues: PropTypes.array,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
-}
-
-SelectField.defaultProps = {
-  editable: false,
-  multiple: false,
-  skipValues: [],
-}
-
 
 /**
  * MDL v1 is hard to extend with react ...

@@ -15,7 +15,7 @@
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "lint": "eslint src/** test/**",
     "gh-pages": "gh-pages-deploy",
-    "prepublish": "npm run lint",
+    "prepublish": "npm run lint && npm build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --require test/config/setup 'test/*.js'",
     "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require test/config/setup 'test/*.js'"
@@ -43,7 +43,9 @@
   },
   "gh-pages-deploy": {
     "staticpath": "examples/dist",
-    "prep": ["build:examples"],
+    "prep": [
+      "build:examples"
+    ],
     "noprompt": false
   },
   "homepage": "https://hribb.github.io/react-mdl-selectfield/",
@@ -73,6 +75,7 @@
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.6.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "faker": "^3.1.0",
     "ghooks": "^1.3.2",
     "html-webpack-plugin": "^2.22.0",
     "html-webpack-plugin-remove": "0.0.2",

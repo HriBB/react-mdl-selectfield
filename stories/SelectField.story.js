@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
+import faker from 'faker'
 
 import { SelectField, Option } from '../src';
 
@@ -57,6 +58,15 @@ storiesOf('SelectField', module)
       <Option value={3}>Three</Option>
       <Option value={4}>Four</Option>
       <Option value={5}>Five</Option>
+    </SelectField>
+  ))
+  .add('lots of values', () => (
+    <SelectField label={'Select me'} editable>
+      {[...Array(45).keys()].map(i =>
+        <Option key={i} value={i}>
+          {`${faker.name.firstName()} ${faker.name.lastName()}`}
+        </Option>
+      )}
     </SelectField>
   ))
   .add('skip values', () => (
