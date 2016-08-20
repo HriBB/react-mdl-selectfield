@@ -8,6 +8,12 @@
     }
   }
 
+  &.mdl-selectfield--empty {
+    .mdl-menu__container {
+      display: none;
+    }
+  }
+
   &.mdl-selectfield--error {
     .mdl-selectfield__arrow {
       color: #d50000;

@@ -203,9 +203,9 @@ export default class SelectField extends Component {
 
     const children = this.getChildren()
 
-    const mainClass = classnames({
-      'mdl-selectfield': true,
+    const mainClass = classnames('mdl-selectfield', {
       'mdl-selectfield--editable': editable,
+      'mdl-selectfield--empty': !children.length,
       'mdl-selectfield--error': error,
     }, className)
 
@@ -241,7 +241,7 @@ export default class SelectField extends Component {
           />}
 
         {!readOnly &&
-          <Menu target={this.id} ripple>
+          <Menu target={this.id}>
             {Children.map(children, child => {
               const className = classnames({
                 'mdl-menu__item--selected': !multiple && child.props.value === value,
@@ -272,7 +272,7 @@ export default class SelectField extends Component {
 let selectFieldIndex = 0
 
 /**
- * Has override been applied
+ * Has override been applied?
  *
  * @type {Boolean}
  */
