@@ -13,6 +13,7 @@ export default class MultiSelectField extends Component {
     floatingLabel: PropTypes.bool,
     label: PropTypes.string.isRequired,
     value: PropTypes.array,
+    readOnly: PropTypes.bool,
     editable: PropTypes.bool,
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     onFocus: PropTypes.func,
@@ -28,10 +29,16 @@ export default class MultiSelectField extends Component {
 
   constructor(props) {
     super(props)
+
+    if (props.readOnly && props.editable) {
+      throw new Error('MultiSelectField cannot be both "editable" and "readOnly"!')
+    }
+
     this.state = {
       value: [],
       tags: [],
     }
+
     this.onSelectChange = this.onSelectChange.bind(this)
     this.onTagClick = this.onTagClick.bind(this)
   }
@@ -76,36 +83,65 @@ export default class MultiSelectField extends Component {
 
   render() {
     const {
-      floatingLabel, className, label, editable, error,
-      onFocus, onBlur, children,
+      floatingLabel, className, label, readOnly, editable,
+      error, onFocus, onBlur, children,
     } = this.props
     const { value, tags } = this.state
     const mainClass = classnames('mdl-multiselectfield', className)
     return (
       <div className={mainClass}>
-        <SelectField
-          floatingLabel={floatingLabel}
-          label={label}
-          multiple
-          error={error}
-          editable={editable}
-          skipValues={value}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={this.onSelectChange}
-        >
-          {children}
-        </SelectField>
+
+        {readOnly &&
+          <div className={'mdl-textfield mdl-textfield--readOnly'}>
+            <div className={'mdl-textfield__input'}>
+              {label}
+            </div>
+          </div>}
+
+        {!readOnly &&
+          <SelectField
+            floatingLabel={floatingLabel}
+            label={label}
+            multiple
+            error={error}
+            editable={editable}
+            skipValues={value}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onChange={this.onSelectChange}
+          >
+            {children}
+          </SelectField>}
+
         <div className={'mdl-taglist'}>
           {tags.map(tag =>
-            <Button key={tag.value} raised onClick={() => this.onTagClick(tag.value)}>
-              {tag.text}
-              <Icon name={'clear'}/>
-            </Button>
+            <Tag
+              key={tag.value}
+              value={tag.value}
+              text={tag.text}
+              readOnly={readOnly}
+              remove={this.onTagClick}
+            />
           )}
         </div>
       </div>
     )
   }
 
+}
+
+const Tag = props => {
+  const { value, text, readOnly, remove } = props
+  const buttonProps = {
+    raised: true,
+  }
+  if (!readOnly) {
+    buttonProps.onClick = () => remove(value)
+  }
+  return (
+    <Button {...buttonProps}>
+      {text}
+      {!readOnly && <Icon name={'clear'}/>}
+    </Button>
+  )
 }
