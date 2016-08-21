@@ -26,7 +26,6 @@ export default class MultiSelectField extends Component {
     value: [],
   }
 
-
   constructor(props) {
     super(props)
 
@@ -39,6 +38,8 @@ export default class MultiSelectField extends Component {
       tags: [],
     }
 
+    this.onSelectFocus = this.onSelectFocus.bind(this)
+    this.onSelectBlur = this.onSelectBlur.bind(this)
     this.onSelectChange = this.onSelectChange.bind(this)
     this.onTagClick = this.onTagClick.bind(this)
   }
@@ -57,6 +58,14 @@ export default class MultiSelectField extends Component {
       })
       this.setState({ value, tags })
     }
+  }
+
+  onSelectFocus() {
+    if (this.props.onFocus) this.props.onFocus(this.state.value)
+  }
+
+  onSelectBlur() {
+    if (this.props.onBlur) this.props.onBlur(this.state.value)
   }
 
   onSelectChange(val, text) {
@@ -83,8 +92,7 @@ export default class MultiSelectField extends Component {
 
   render() {
     const {
-      floatingLabel, className, label, readOnly, editable,
-      error, onFocus, onBlur, children,
+      floatingLabel, className, label, readOnly, editable, error, children,
     } = this.props
     const { value, tags } = this.state
     const mainClass = classnames('mdl-multiselectfield', className)
@@ -99,8 +107,8 @@ export default class MultiSelectField extends Component {
           editable={editable}
           readOnly={readOnly}
           skipValues={value}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          onFocus={this.onSelectFocus}
+          onBlur={this.onSelectBlur}
           onChange={this.onSelectChange}
         >
           {children}

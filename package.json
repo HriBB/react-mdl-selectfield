@@ -5,6 +5,7 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "scripts": {
+    "clean": "rimraf lib dist es",
     "start": "npm run storybook",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9002",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && cp src/SelectField/SelectField.scss lib/SelectField/SelectField.scss && cp src/MultiSelectField/MultiSelectField.scss lib/MultiSelectField/MultiSelectField.scss",
@@ -15,7 +16,7 @@
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "lint": "eslint src/** test/**",
     "gh-pages": "gh-pages-deploy",
-    "prepublish": "npm run lint && npm build",
+    "prepublish": "npm run clean && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --require test/config/setup 'test/*.js'",
     "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require test/config/setup 'test/*.js'"

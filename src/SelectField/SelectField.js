@@ -137,15 +137,15 @@ export default class SelectField extends Component {
     this.hideMenu()
   }
 
-  onTextfieldFocus(e) {
+  onTextfieldFocus() {
     this.showMenu()
     this.setState({ focused: true })
-    if (this.props.onFocus) this.props.onFocus(e)
+    if (this.props.onFocus) this.props.onFocus(this.state.value)
   }
 
-  onTextfieldBlur(e) {
+  onTextfieldBlur() {
     this.setState({ focused: false })
-    if (this.props.onBlur) this.props.onBlur(e)
+    if (this.props.onBlur) this.props.onBlur(this.state.value)
   }
 
   onTextfieldChange(e) {
