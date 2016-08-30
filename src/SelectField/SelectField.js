@@ -4,75 +4,49 @@ import classnames from 'classnames'
 
 import './SelectField.scss'
 
-import Option from '../Option/Option'
-
 export default class SelectField extends Component {
 
   static propTypes = {
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
     className: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     floatingLabel: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    value: PropTypes.any,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    multiple: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    editable: PropTypes.bool,
-    skipValues: PropTypes.array,
+    showMenuBelow: PropTypes.bool,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+    readOnly: PropTypes.bool,
+    value: PropTypes.any,
   }
 
   static defaultProps = {
-    editable: false,
-    multiple: false,
-    skipValues: [],
+    showMenuBelow: false,
   }
 
   constructor(props) {
     super(props)
 
-    if (props.readOnly && props.editable) {
-      throw new Error('MultiSelectField cannot be both "editable" and "readOnly"!')
-    }
-
-    this.state = {
-      value: null,
-      inputValue: '',
-      focused: false,
-    }
+    // focused state
+    this.state = { focused: false }
 
     // generate selectfield id
     this.id = `mdl-selectfield-${selectFieldIndex}`
     selectFieldIndex++
 
     // override material menu if needed
-    // this needs to be done in the constructor
+    // this needs to be done only once
+    // and it needs to be done in the constructor
     // otherwise menu does not work properly
     if (!overrideApplied) applyOverride()
 
+    // bind methods
     this.showMenu = this.showMenu.bind(this)
     this.hideMenu = this.hideMenu.bind(this)
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
     this.onTextfieldFocus = this.onTextfieldFocus.bind(this)
     this.onTextfieldBlur = this.onTextfieldBlur.bind(this)
-    this.onTextfieldChange = this.onTextfieldChange.bind(this)
     this.onTextfieldKeyDown = this.onTextfieldKeyDown.bind(this)
-  }
-
-  componentWillMount() {
-    const { value, multiple, children } = this.props
-    if (value && !multiple) {
-      Children.forEach(children, child => {
-        if (child.props.value === value) {
-          this.setState({
-            value: child.props.value,
-            inputValue: child.props.children || '',
-          })
-        }
-      })
-    }
   }
 
   getInputNode() {
@@ -111,53 +85,30 @@ export default class SelectField extends Component {
     menuOpenCurrent = false
   }
 
-  focusMenu() {
-    this.getMenu().element_.children[0].focus()
-  }
-
-  fixMenuHeight() {
-    // TODO: find a better solution or implement boundaries
-    const node = this.getMenuNode()
-    const box = node.getBoundingClientRect()
-    const width = box.width
-    const height = box.height > 250 ? 250 : box.height
-    node.style.clip = `rect(0 ${width}px ${height}px 0)`
-    node.parentNode.style.height = `${height}px`
-    node.previousSibling.style.height = `${height}px`
-  }
-
   onMenuItemClick(child) {
-    const { multiple } = this.props
-    const { value, children } = child.props
-    const inputValue = value ? children || '' : ''
-    if (multiple || value !== this.state.value) {
-      this.setState({ value, inputValue })
-      if (this.props.onChange) this.props.onChange(value, inputValue)
+    const { value, onChange } = this.props
+    if (value !== child.props.value) {
+      if (onChange) onChange(child.props.value)
     }
     this.hideMenu()
   }
 
   onTextfieldFocus() {
+    const { value, onFocus } = this.props
     this.showMenu()
     this.setState({ focused: true })
-    if (this.props.onFocus) this.props.onFocus(this.state.value)
+    if (onFocus) onFocus(value)
   }
 
   onTextfieldBlur() {
+    const { value, onBlur } = this.props
     this.setState({ focused: false })
-    if (this.props.onBlur) this.props.onBlur(this.state.value)
-  }
-
-  onTextfieldChange(e) {
-    const newValue = e.target.value
-    this.setState({ value: null, inputValue: newValue }, this.fixMenuHeight)
+    if (onBlur) onBlur(value)
   }
 
   onTextfieldKeyDown(e) {
     const TAB = 9
-    //const ENTER = 13
     const ESCAPE = 27
-    //const DOWN_ARROW = 40
 
     switch (e.which) {
       case TAB:
@@ -170,61 +121,37 @@ export default class SelectField extends Component {
     }
   }
 
-  getChildren() {
-    const { editable, skipValues } = this.props
-    const { value, inputValue } = this.state
-    let children = Children.toArray(this.props.children)
-    // needed for multiselect
-    if (skipValues.length) {
-      children = children.filter(child => skipValues.indexOf(child.props.value) === -1)
-      // no more children
-      if (!children.length) {
-        return [<Option value={''} disabled>No values</Option>]
-      }
-    }
-    // return all
-    if (value || !editable || !inputValue) {
-      return children
-    }
-    // filter children
-    const re = new RegExp(inputValue, 'gi');
-    return children.filter(child => child.props.children.match(re))
-  }
-
   render() {
     const {
-      floatingLabel, className, label,
-      error, multiple, readOnly, editable,
+      className, error, floatingLabel, label, showMenuBelow, readOnly, value,
     } = this.props
 
-    const {
-      value, inputValue, focused,
-    } = this.state
-
-    const children = this.getChildren()
+    const children = Children.toArray(this.props.children)
 
     const mainClass = classnames('mdl-selectfield', {
-      'mdl-selectfield--editable': editable,
+      'mdl-selectfield--menu-below': showMenuBelow,
       'mdl-selectfield--empty': !children.length,
       'mdl-selectfield--error': error,
     }, className)
+
+    const index = children.findIndex(c => c.props.value === value)
+    const inputValue = index > -1 ? children[index].props.children : ''
 
     const inputProps = {
       id: this.id,
       className: menuSkipForClass,
       type: 'text',
-      value: !multiple ? inputValue : '',
+      value: inputValue,
       error,
       label,
       floatingLabel,
-      readOnly: !editable,
+      readOnly: true,
       ref: ref => this.input = ref,
     }
 
     if (!readOnly) {
       inputProps.onFocus = this.onTextfieldFocus
       inputProps.onBlur = this.onTextfieldBlur
-      inputProps.onChange = this.onTextfieldChange
       inputProps.onKeyDown = this.onTextfieldKeyDown
     }
 
@@ -236,15 +163,15 @@ export default class SelectField extends Component {
         {!readOnly &&
           <Icon
             className={'mdl-selectfield__arrow'}
-            name={`arrow_drop_${focused ? 'up' : 'down'}`}
+            name={`arrow_drop_${this.state.focused ? 'up' : 'down'}`}
             onClick={this.showMenu}
           />}
 
         {!readOnly &&
           <Menu target={this.id}>
-            {Children.map(children, child => {
+            {children.map(child => {
               const className = classnames({
-                'mdl-menu__item--selected': !multiple && child.props.value === value,
+                'mdl-menu__item--selected': child.props.value === value,
                 'mdl-menu__item--disabled': child.props.disabled,
               })
               return React.cloneElement(child, {

@@ -9,17 +9,16 @@ import SelectField from '../SelectField/SelectField'
 export default class MultiSelectField extends Component {
 
   static propTypes = {
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
     className: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     floatingLabel: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    value: PropTypes.array,
-    readOnly: PropTypes.bool,
-    editable: PropTypes.bool,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+    readOnly: PropTypes.bool,
+    value: PropTypes.array,
   }
 
   static defaultProps = {
@@ -29,89 +28,70 @@ export default class MultiSelectField extends Component {
   constructor(props) {
     super(props)
 
-    if (props.readOnly && props.editable) {
-      throw new Error('MultiSelectField cannot be both "editable" and "readOnly"!')
-    }
-
-    this.state = {
-      value: [],
-      tags: [],
-    }
-
+    // bind event handlers
     this.onSelectFocus = this.onSelectFocus.bind(this)
     this.onSelectBlur = this.onSelectBlur.bind(this)
     this.onSelectChange = this.onSelectChange.bind(this)
     this.onTagClick = this.onTagClick.bind(this)
   }
 
-  componentWillMount() {
-    const { value, children } = this.props
-    if (value.length) {
-      let tags = []
-      Children.forEach(children, child => {
-        if (value.indexOf(child.props.value) > -1) {
-          tags.push({
-            value: child.props.value,
-            text: child.props.children,
-          })
-        }
-      })
-      this.setState({ value, tags })
-    }
-  }
-
   onSelectFocus() {
-    if (this.props.onFocus) this.props.onFocus(this.state.value)
+    const { value, onFocus } = this.props
+    if (onFocus) onFocus(value)
   }
 
   onSelectBlur() {
-    if (this.props.onBlur) this.props.onBlur(this.state.value)
+    const { value, onBlur } = this.props
+    if (onBlur) onBlur(value)
   }
 
   onSelectChange(val, text) {
-    const { value, tags } = this.state
+    const { value, onChange } = this.props
     if (value.indexOf(val) === -1) {
       const newValue = value.concat([val])
-      this.setState({
-        value: newValue,
-        tags: tags.concat([{ value: val, text }]),
-      })
-      if (this.props.onChange) this.props.onChange(newValue)
+      if (onChange) onChange(newValue)
     }
   }
 
   onTagClick(val) {
-    const { value, tags } = this.state
+    const { value, onChange } = this.props
     const newValue = value.filter(v => v !== val)
-    this.setState({
-      value: newValue,
-      tags: tags.filter(t => t.value !== val),
-    })
-    if (this.props.onChange) this.props.onChange(newValue)
+    if (onChange) onChange(newValue)
   }
 
   render() {
     const {
-      floatingLabel, className, label, readOnly, editable, error, children,
+      className, error, floatingLabel, label, readOnly, value,
     } = this.props
-    const { value, tags } = this.state
+
+    const children = Children.toArray(this.props.children)
+
     const mainClass = classnames('mdl-multiselectfield', className)
+
+    const tags = value.map(val => {
+      const index = children.findIndex(c => c.props.value === val)
+      const child = children[index]
+      return {
+        value: child.props.value,
+        text: child.props.children,
+      }
+    })
+
+    const options = children.filter(c => value.indexOf(c.props.value) === -1)
+
     return (
       <div className={mainClass}>
 
         <SelectField
           floatingLabel={floatingLabel}
           label={label}
-          multiple
           error={error}
-          editable={editable}
           readOnly={readOnly}
-          skipValues={value}
           onFocus={this.onSelectFocus}
           onBlur={this.onSelectBlur}
           onChange={this.onSelectChange}
         >
-          {children}
+          {options}
         </SelectField>
 
         <div className={'mdl-taglist'}>

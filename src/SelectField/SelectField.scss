@@ -2,7 +2,7 @@
   position: relative;
   width: 300px;
 
-  &.mdl-selectfield--editable {
+  &.mdl-selectfield--menu-below {
     .mdl-menu__container {
       margin-top: -20px;
     }
@@ -44,11 +44,7 @@
 
   .mdl-menu__container {
     width: 100% !important;
-    margin-top: -20px;
-
-    // use this if you want to follow the material design spec
-    // which places the menu above the input field
-    //margin-top: -46px;
+    margin-top: -52px;
 
     .mdl-menu {
       width: 100% !important;

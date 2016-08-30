@@ -1,5 +1,3 @@
-import SelectField from './SelectField/SelectField';
-import MultiSelectField from './MultiSelectField/MultiSelectField';
-import Option from './Option/Option';
-
-export { SelectField, MultiSelectField, Option };
+export SelectField from './SelectField/SelectField';
+export MultiSelectField from './MultiSelectField/MultiSelectField';
+export Option from './Option/Option';

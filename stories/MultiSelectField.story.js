@@ -22,8 +22,8 @@ storiesOf('MultiSelectField', module)
       <Option value={5}>Value Five</Option>
     </MultiSelectField>
   ))
-  .add('editable', () => (
-    <MultiSelectField label={'Select me many times'} editable>
+  .add('read only', () => (
+    <MultiSelectField label={'Cannot select me'} readOnly value={[1,3,5]}>
       <Option value={1}>Value One</Option>
       <Option value={2}>Value Two</Option>
       <Option value={3}>Value Three</Option>
@@ -31,8 +31,8 @@ storiesOf('MultiSelectField', module)
       <Option value={5}>Value Five</Option>
     </MultiSelectField>
   ))
-  .add('readOnly', () => (
-    <MultiSelectField label={'Cannot change me'} readOnly value={[1,3,5]}>
+  .add('change handler', () => (
+    <MultiSelectField label={'Select me many times'} value={[3]} onChange={value => console.log('value', value)}>
       <Option value={1}>Value One</Option>
       <Option value={2}>Value Two</Option>
       <Option value={3}>Value Three</Option>

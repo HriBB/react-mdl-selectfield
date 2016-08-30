@@ -14,15 +14,6 @@ storiesOf('SelectField', module)
       <Option value={5}>Five</Option>
     </SelectField>
   ))
-  .add('error', () => (
-    <SelectField label={'Select me'} error={'Invalid value!'}>
-      <Option value={1}>One</Option>
-      <Option value={2}>Two</Option>
-      <Option value={3}>Three</Option>
-      <Option value={4}>Four</Option>
-      <Option value={5}>Five</Option>
-    </SelectField>
-  ))
   .add('preselected', () => (
     <SelectField label={'Select me'} value={1}>
       <Option value={1}>One</Option>
@@ -32,16 +23,16 @@ storiesOf('SelectField', module)
       <Option value={5}>Five</Option>
     </SelectField>
   ))
-  .add('editable', () => (
-    <SelectField label={'Select me'} editable>
-    <Option value={1}>One</Option>
-    <Option value={2}>Two</Option>
-    <Option value={3}>Three</Option>
-    <Option value={4}>Four</Option>
-    <Option value={5}>Five</Option>
+  .add('menu below', () => (
+    <SelectField label={'Select me'} value={1} showMenuBelow>
+      <Option value={1}>One</Option>
+      <Option value={2}>Two</Option>
+      <Option value={3}>Three</Option>
+      <Option value={4}>Four</Option>
+      <Option value={5}>Five</Option>
     </SelectField>
   ))
-  .add('readonly', () => (
+  .add('read only', () => (
     <SelectField label={'Select me'} readOnly value={3}>
     <Option value={1}>One</Option>
     <Option value={2}>Two</Option>
@@ -78,8 +69,8 @@ storiesOf('SelectField', module)
       )}
     </SelectField>
   ))
-  .add('skip values', () => (
-    <SelectField label={'Select me'} skipValues={[2,4]}>
+  .add('error', () => (
+    <SelectField label={'Select me'} error={'Invalid value!'}>
       <Option value={1}>One</Option>
       <Option value={2}>Two</Option>
       <Option value={3}>Three</Option>
@@ -87,8 +78,8 @@ storiesOf('SelectField', module)
       <Option value={5}>Five</Option>
     </SelectField>
   ))
-  .add('onChange handler', () => (
-    <SelectField label={'Select me'} onChange={value => console.log(`selected value = ${value}`)}>
+  .add('change handler', () => (
+    <SelectField label={'Select me'} onChange={value => console.log('value', value)}>
       <Option value={1}>One</Option>
       <Option value={2}>Two</Option>
       <Option value={3}>Three</Option>
@@ -106,24 +97,6 @@ storiesOf('SelectField', module)
         <Option value={5}>Five</Option>
       </SelectField>
       <SelectField label={'Select field #2'}>
-        <Option value={1}>One</Option>
-        <Option value={2}>Two</Option>
-        <Option value={3}>Three</Option>
-        <Option value={4}>Four</Option>
-        <Option value={5}>Five</Option>
-      </SelectField>
-    </div>
-  ))
-  .add('multiple editable fields', () => (
-    <div>
-      <SelectField label={'Select field #1'} editable>
-        <Option value={1}>One</Option>
-        <Option value={2}>Two</Option>
-        <Option value={3}>Three</Option>
-        <Option value={4}>Four</Option>
-        <Option value={5}>Five</Option>
-      </SelectField>
-      <SelectField label={'Select field #2'} editable>
         <Option value={1}>One</Option>
         <Option value={2}>Two</Option>
         <Option value={3}>Three</Option>
