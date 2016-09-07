@@ -5,13 +5,18 @@ import { MultiSelectField, Option } from '../src';
 
 storiesOf('MultiSelectField', module)
   .add('default', () => (
-    <MultiSelectField label={'Select me many times'}>
-      <Option value={1}>Value One</Option>
-      <Option value={2}>Value Two</Option>
-      <Option value={3}>Value Three</Option>
-      <Option value={4}>Value Four</Option>
-      <Option value={5}>Value Five</Option>
-    </MultiSelectField>
+    <div>
+      <MultiSelectField label={'Select me many times'}>
+        <Option value={1}>Value One</Option>
+        <Option value={2}>Value Two</Option>
+        <Option value={3}>Value Three</Option>
+        <Option value={4}>Value Four</Option>
+        <Option value={5}>Value Five</Option>
+      </MultiSelectField>
+      <p style={{width:'300px'}}>
+        MultiSelectField in examples is stateless and wont work as expected. Update coming soon ;)
+      </p>
+    </div>
   ))
   .add('preselected', () => (
     <MultiSelectField label={'Select me many times'} value={[2,4]}>

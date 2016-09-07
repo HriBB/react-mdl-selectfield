@@ -6,13 +6,18 @@ import { SelectField, Option } from '../src';
 
 storiesOf('SelectField', module)
   .add('default', () => (
-    <SelectField label={'Select me'}>
-      <Option value={1}>One</Option>
-      <Option value={2}>Two</Option>
-      <Option value={3}>Three</Option>
-      <Option value={4}>Four</Option>
-      <Option value={5}>Five</Option>
-    </SelectField>
+    <div>
+      <SelectField label={'Select me'}>
+        <Option value={1}>One</Option>
+        <Option value={2}>Two</Option>
+        <Option value={3}>Three</Option>
+        <Option value={4}>Four</Option>
+        <Option value={5}>Five</Option>
+      </SelectField>
+      <p style={{width:'300px'}}>
+        SelectField in examples is stateless and wont work as expected. Update coming soon ;)
+      </p>
+    </div>
   ))
   .add('preselected', () => (
     <SelectField label={'Select me'} value={1}>
