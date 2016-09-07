@@ -130,6 +130,7 @@ export default class SelectField extends Component {
 
     const mainClass = classnames('mdl-selectfield', {
       'mdl-selectfield--menu-below': showMenuBelow,
+      'mdl-selectfield--floating-label': floatingLabel,
       'mdl-selectfield--empty': !children.length,
       'mdl-selectfield--error': error,
     }, className)

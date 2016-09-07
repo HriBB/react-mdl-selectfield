@@ -42,6 +42,12 @@
     color: #ccc;
   }
 
+  &.mdl-selectfield--floating-label {
+    .mdl-menu__container {
+      margin-top: -46px;
+    }
+  }
+
   .mdl-menu__container {
     width: 100% !important;
     margin-top: -52px;

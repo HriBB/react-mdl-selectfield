@@ -1,10 +1,10 @@
 import React, { Component, Children, PropTypes } from 'react'
-import { Button, Icon } from 'react-mdl'
 import classnames from 'classnames'
 
 import './MultiSelectField.scss'
 
 import SelectField from '../SelectField/SelectField'
+import Tag from './Tag'
 
 export default class MultiSelectField extends Component {
 
@@ -109,20 +109,4 @@ export default class MultiSelectField extends Component {
     )
   }
 
-}
-
-const Tag = props => {
-  const { value, text, readOnly, remove } = props
-  const buttonProps = {
-    raised: true,
-  }
-  if (!readOnly) {
-    buttonProps.onClick = () => remove(value)
-  }
-  return (
-    <Button {...buttonProps}>
-      {text}
-      {!readOnly && <Icon name={'clear'}/>}
-    </Button>
-  )
 }
