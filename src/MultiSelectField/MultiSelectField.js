@@ -45,7 +45,7 @@ export default class MultiSelectField extends Component {
     if (onBlur) onBlur(value)
   }
 
-  onSelectChange(val, text) {
+  onSelectChange(val) {
     const { value, onChange } = this.props
     if (value.indexOf(val) === -1) {
       const newValue = value.concat([val])

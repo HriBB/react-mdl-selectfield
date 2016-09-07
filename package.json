@@ -103,6 +103,6 @@
     "invariant": "^2.0.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "react-mdl": "^1.6.1"
+    "react-mdl": "^1.7.1"
   }
 }
